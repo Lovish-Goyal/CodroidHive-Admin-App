@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:admin_app/utils/image_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
 
@@ -17,11 +21,11 @@ class _AddEventScreenState extends ConsumerState<AddEventScreen> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descController = TextEditingController();
-  final _imageController = TextEditingController();
   final _venueController = TextEditingController();
   final _sponsorController = TextEditingController();
 
   DateTime? _selectedDate;
+  File? imgUrl;
 
   Future<void> _selectDate(BuildContext context) async {
     final now = DateTime.now();
@@ -39,6 +43,17 @@ class _AddEventScreenState extends ConsumerState<AddEventScreen> {
     }
   }
 
+  void _handleImage(BuildContext context, WidgetRef ref) async {
+    final pickedFile = await ImageHandler.pickImage();
+
+    if (pickedFile != null) {
+      setState(() {
+        imgUrl = pickedFile;
+      });
+      Logger().i("Image uploaded is $pickedFile");
+    }
+  }
+
   Future<void> _addEvent() async {
     if (_formKey.currentState?.validate() ?? false) {
       if (_selectedDate == null) {
@@ -48,11 +63,13 @@ class _AddEventScreenState extends ConsumerState<AddEventScreen> {
         return;
       }
 
+      final image = await ImageHandler.uploadImage(imgUrl!, 'event');
+
       final event = EventModel(
         id: const Uuid().v4(),
         eventName: _titleController.text.trim(),
         description: _descController.text.trim(),
-        image: _imageController.text.trim(),
+        image: image,
         venue: _venueController.text.trim(),
         sponser: _sponsorController.text.trim(),
         date: _selectedDate!,
@@ -61,7 +78,7 @@ class _AddEventScreenState extends ConsumerState<AddEventScreen> {
       );
 
       await ref.read(eventRepositoryProvider).addEvent(event);
-
+      ref.refresh(eventListProvider);
       if (mounted) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -85,6 +102,18 @@ class _AddEventScreenState extends ConsumerState<AddEventScreen> {
           key: _formKey,
           child: ListView(
             children: [
+              Align(
+                alignment: Alignment.center,
+                child: CircleAvatar(
+                  radius: 50,
+                  child: InkWell(
+                    onTap: () => _handleImage(context, ref),
+                    child: Icon(
+                      Icons.camera_alt,
+                    ),
+                  ),
+                ),
+              ),
               TextFormField(
                 controller: _titleController,
                 decoration: const InputDecoration(labelText: 'Event Title'),
@@ -98,13 +127,6 @@ class _AddEventScreenState extends ConsumerState<AddEventScreen> {
                 maxLines: 3,
                 validator: (val) =>
                     val == null || val.isEmpty ? 'Enter description' : null,
-              ),
-              const SizedBox(height: 12),
-              TextFormField(
-                controller: _imageController,
-                decoration: const InputDecoration(labelText: 'Image URL'),
-                validator: (val) =>
-                    val == null || val.isEmpty ? 'Enter image URL' : null,
               ),
               const SizedBox(height: 12),
               TextFormField(

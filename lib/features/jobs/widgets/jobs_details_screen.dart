@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/jobs_model/jobs_model.dart';
 import '../../../providers/jobs_provider.dart';
-import 'edit_jobs_screen.dart';
+import 'edit_job.dart';
 import 'package:intl/intl.dart';
 
 class JobDetailScreen extends ConsumerStatefulWidget {
@@ -76,12 +76,13 @@ class _JobDetailScreenState extends ConsumerState<JobDetailScreen> {
       borderRadius: BorderRadius.circular(16),
       child: _job.image != null && _job.image!.isNotEmpty
           ? Image.network(
+              height: 350,
               _job.image!,
               width: double.infinity,
               fit: BoxFit.contain,
             )
           : Container(
-              height: 220,
+              height: 350,
               color: Colors.grey.shade300,
               child: const Center(child: Text("No Image Available")),
             ),

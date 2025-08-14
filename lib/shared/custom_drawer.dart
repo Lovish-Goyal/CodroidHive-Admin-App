@@ -48,22 +48,22 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
 
-            // // Navigation Links
-            // _buildDrawerItem(
-            //   icon: Icons.dashboard,
-            //   title: 'Dashboard',
-            //   onTap: () => context.go('/home'),
-            // ),
             _buildDrawerItem(
               icon: Icons.people,
               title: 'Users',
               onTap: () => context.push('/users'),
             ),
 
+            // _buildDrawerItem(
+            //   icon: Icons.settings,
+            //   title: 'Settings',
+            //   onTap: () => context.push('/settings'),
+            // ),
+
             _buildDrawerItem(
-              icon: Icons.settings,
-              title: 'Settings',
-              onTap: () => context.push('/settings'),
+              icon: Icons.notifications,
+              title: 'Notifications',
+              onTap: () => context.push('/notifications'),
             ),
 
             const Spacer(),

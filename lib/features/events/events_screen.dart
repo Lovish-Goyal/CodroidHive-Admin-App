@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../constants/colors.dart';
 import '../../providers/events_provider.dart';
-import 'widgets/ad_event_screen.dart';
-import 'widgets/event_details.dart';
+import 'widgets/ad_event.dart';
+import 'widgets/event_details_screen.dart';
 
 class EventsScreen extends ConsumerStatefulWidget {
   const EventsScreen({super.key});
@@ -12,109 +13,228 @@ class EventsScreen extends ConsumerStatefulWidget {
 }
 
 class _EventsScreenState extends ConsumerState<EventsScreen> {
-  final PageController _pageController = PageController(
-    initialPage: 0,
-    viewportFraction: 1.0, // Full width per page
-  );
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
+  String searchQuery = '';
+  bool sortByLatest = true;
 
   @override
   Widget build(BuildContext context) {
     final eventsAsync = ref.watch(eventListProvider);
 
     return Scaffold(
-      body: eventsAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Error: $e')),
-        data: (events) {
-          if (events.isEmpty) {
-            return const Center(child: Text('No events found.'));
-          }
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            children: [
+              // Search bar
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search events...',
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    searchQuery = value.toLowerCase();
+                  });
+                },
+              ),
+              const SizedBox(height: 10),
 
-          return PageView.builder(
-            controller: _pageController,
-            physics: const PageScrollPhysics(), // ensures snapping one by one
-            scrollDirection: Axis.horizontal,
-            itemCount: events.length,
-            itemBuilder: (context, index) {
-              final event = events[index];
-              return GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => EventDetailScreen(event: event),
+              // Filter buttons
+              Row(
+                children: [
+                  const Text('Sort by: '),
+                  DropdownButton<bool>(
+                    value: sortByLatest,
+                    items: const [
+                      DropdownMenuItem(
+                        value: true,
+                        child: Text('Latest'),
+                      ),
+                      DropdownMenuItem(
+                        value: false,
+                        child: Text('Oldest'),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          sortByLatest = value;
+                        });
+                      }
+                    },
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    elevation: 6,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (event.image != null &&
-                            event.image!.trim().isNotEmpty)
-                          ClipRRect(
-                            borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(16),
-                            ),
-                            child: Image.network(
-                              event.image!,
-                              height: 240,
-                              width: double.infinity,
-                              fit: BoxFit.fill,
-                              errorBuilder: (_, __, ___) => Image.asset(
-                                'assets/images/default.jpg',
-                                height: 240,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
+                ],
+              ),
+              const SizedBox(height: 10),
+
+              // Events List
+              Expanded(
+                child: eventsAsync.when(
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (e, _) => Center(child: Text('Error: $e')),
+                  data: (events) {
+                    if (events.isEmpty) {
+                      return const Center(child: Text('No events found.'));
+                    }
+
+                    // Filter and sort events
+                    final filteredEvents = events
+                        .where((event) =>
+                            event.eventName
+                                .toLowerCase()
+                                .contains(searchQuery) ||
+                            (event.description?.toLowerCase() ?? '')
+                                .contains(searchQuery))
+                        .toList();
+
+                    filteredEvents.sort((a, b) => sortByLatest
+                        ? b.createdAt.compareTo(a.createdAt)
+                        : a.createdAt.compareTo(b.createdAt));
+
+                    if (filteredEvents.isEmpty) {
+                      return const Center(child: Text('No results found.'));
+                    }
+
+                    return ListView.builder(
+                      itemCount: filteredEvents.length,
+                      itemBuilder: (context, index) {
+                        final event = filteredEvents[index];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => EventDetailScreen(event: event),
                               ),
+                            );
+                          },
+                          child: Card(
+                            color: AppColors.cardBackground,
+                            elevation: 3,
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Event image - full width landscape
+                                if (event.image != null &&
+                                    event.image!.trim().isNotEmpty)
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(12),
+                                    ),
+                                    child: Image.network(
+                                      event.image!,
+                                      height: 250,
+                                      width: double.infinity,
+                                      fit: BoxFit.fill,
+                                      errorBuilder: (_, __, ___) => Container(
+                                        height: 250,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.shade300,
+                                          borderRadius:
+                                              const BorderRadius.vertical(
+                                            top: Radius.circular(12),
+                                          ),
+                                        ),
+                                        child: const Icon(Icons.event,
+                                            size: 48, color: Colors.grey),
+                                      ),
+                                    ),
+                                  )
+                                else
+                                  Container(
+                                    height: 180,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade300,
+                                      borderRadius: const BorderRadius.vertical(
+                                        top: Radius.circular(12),
+                                      ),
+                                    ),
+                                    child: const Icon(Icons.event,
+                                        size: 48, color: Colors.grey),
+                                  ),
+
+                                // Event details
+                                Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        event.eventName,
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        event.description ??
+                                            'No description provided.',
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(fontSize: 14),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.calendar_today,
+                                                size: 14,
+                                                color: Colors.blue,
+                                              ),
+                                              const SizedBox(width: 4),
+                                              Text(
+                                                'Posted on:',
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.grey),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            event.createdAt
+                                                .toLocal()
+                                                .toIso8601String()
+                                                .split('T')
+                                                .first,
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                event.eventName ?? "",
-                                style: const TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                event.description ?? 'No description provided.',
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                'Posted on: ${event.createdAt.toLocal().toIso8601String().split('T').first}',
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        );
+                      },
+                    );
+                  },
                 ),
-              );
-            },
-          );
-        },
+              ),
+            ],
+          ),
+        ),
       ),
       floatingActionButton: GestureDetector(
         onTap: () async {
@@ -122,7 +242,6 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
             context,
             MaterialPageRoute(builder: (_) => const AddEventScreen()),
           );
-          ref.refresh(eventListProvider); // Refresh after return
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -141,15 +260,15 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
               )
             ],
           ),
-          child: Row(
+          child: const Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.add, color: Colors.white),
-              const SizedBox(width: 6),
+              Icon(Icons.add, color: Colors.white),
+              SizedBox(width: 6),
               Text(
                 'Add Event',
-                style: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
             ],
           ),

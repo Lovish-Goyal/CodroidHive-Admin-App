@@ -34,12 +34,12 @@ class ImageHandler {
     }
   }
 
-  static Future<String?> uploadImage(File imageFile) async {
+  static Future<String?> uploadImage(File imageFile, String category) async {
     try {
       _logger.i('Uploading image: $imageFile');
 
-      final uri =
-          Uri.parse('https://hiveserver.codroidhub.com/api/api/upload-image');
+      final uri = Uri.parse(
+          'https://hiveserver.codroidhub.com/api/api/upload-image-$category');
       final request = http.MultipartRequest('POST', uri)
         ..files.add(await http.MultipartFile.fromPath(
           'image',

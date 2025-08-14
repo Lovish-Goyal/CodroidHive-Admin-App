@@ -1,7 +1,7 @@
+import 'package:admin_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fl_chart/fl_chart.dart';
-import '../../providers/dashboard_provider.dart'; // Adjust this import as needed
+import '../../providers/dashboard_provider.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -11,6 +11,7 @@ class HomeScreen extends ConsumerWidget {
     final dashboardAsync = ref.watch(dashboardProvider);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -18,98 +19,79 @@ class HomeScreen extends ConsumerWidget {
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (e, _) => Center(child: Text('Error: $e')),
             data: (data) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Welcome Admin 👋',
-                    style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        // color: Color(0xFF0A1D56),
-                        color: Colors.green),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Here is the summary of your platform',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
-                  const SizedBox(height: 30),
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _DashboardStat(
+                          title: 'Users',
+                          count: data['users'] ?? 0,
+                          color: Colors.indigo,
+                          icon: Icons.people,
+                        ),
+                        _DashboardStat(
+                          title: 'Jobs',
+                          count: data['jobs'] ?? 0,
+                          color: Colors.green,
+                          icon: Icons.work_outline,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
 
-                  // Stats Row 1
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _DashboardStat(
-                        title: 'Users',
-                        count: data['users'] ?? 0,
-                        color: Colors.indigo,
-                        icon: Icons.people,
-                      ),
-                      _DashboardStat(
-                        title: 'Jobs',
-                        count: data['jobs'] ?? 0,
-                        color: Colors.green,
-                        icon: Icons.work_outline,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-
-                  // Stats Row 2
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _DashboardStat(
-                        title: 'Events',
-                        count: data['events'] ?? 0,
-                        color: Colors.orange,
-                        icon: Icons.event_note,
-                      ),
-                      _DashboardStat(
-                        title: 'Courses',
-                        count: data['courses'] ?? 0,
-                        color: Colors.purple,
-                        icon: Icons.school,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 32),
-
-                  // Chart
-                  Expanded(
-                    child: Container(
+                    // Stats Row 2
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _DashboardStat(
+                          title: 'Events',
+                          count: data['events'] ?? 0,
+                          color: Colors.orange,
+                          icon: Icons.event_note,
+                        ),
+                        _DashboardStat(
+                          title: 'Courses',
+                          count: data['courses'] ?? 0,
+                          color: Colors.purple,
+                          icon: Icons.school,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 32),
+                    Container(
                       width: double.infinity,
+                      padding: EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 6,
-                            offset: const Offset(0, 3),
-                            color: Colors.black12,
-                          ),
-                        ],
+                        color: AppColors.primary.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      padding: const EdgeInsets.all(20),
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'User Growth (Monthly)',
+                            "Notifications Sent (per week)",
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF0A1D56),
                             ),
                           ),
-                          SizedBox(height: 16),
-                          Expanded(child: _UserGrowthChart()),
+                          SizedBox(height: 8),
+                          Text(
+                            "27",
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blueAccent,
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             },
           ),
@@ -170,63 +152,6 @@ class _DashboardStat extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _UserGrowthChart extends StatelessWidget {
-  const _UserGrowthChart();
-
-  @override
-  Widget build(BuildContext context) {
-    return LineChart(
-      LineChartData(
-        gridData: FlGridData(show: true),
-        borderData: FlBorderData(
-          show: true,
-          border: Border.all(color: Colors.grey.shade300),
-        ),
-        titlesData: FlTitlesData(
-          leftTitles: AxisTitles(
-              sideTitles: SideTitles(showTitles: true, reservedSize: 28)),
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              getTitlesWidget: (value, meta) {
-                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
-                return Padding(
-                  padding: const EdgeInsets.only(top: 6),
-                  child: Text(months[value.toInt() % months.length],
-                      style: const TextStyle(fontSize: 10)),
-                );
-              },
-              interval: 1,
-            ),
-          ),
-          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-        ),
-        minX: 0,
-        maxX: 5,
-        minY: 0,
-        maxY: 10,
-        lineBarsData: [
-          LineChartBarData(
-            spots: const [
-              FlSpot(0, 3),
-              FlSpot(1, 5),
-              FlSpot(2, 4),
-              FlSpot(3, 6),
-              FlSpot(4, 7),
-              FlSpot(5, 9),
-            ],
-            isCurved: true,
-            color: Colors.blueAccent,
-            barWidth: 3,
-            dotData: FlDotData(show: true),
-          ),
-        ],
       ),
     );
   }

@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:admin_app/utils/image_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 
 import '../../../models/event_model/event_model.dart';
 import '../../../providers/events_provider.dart';
@@ -19,10 +23,10 @@ class _EditEventScreenState extends ConsumerState<EditEventScreen> {
 
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
-  late TextEditingController _imageController;
   late TextEditingController _venueController;
   late TextEditingController _sponsorController;
   DateTime? _selectedDate;
+  File? imgUrl;
 
   @override
   void initState() {
@@ -30,7 +34,6 @@ class _EditEventScreenState extends ConsumerState<EditEventScreen> {
     _titleController = TextEditingController(text: widget.event.eventName);
     _descriptionController =
         TextEditingController(text: widget.event.description);
-    _imageController = TextEditingController(text: widget.event.image);
     _venueController = TextEditingController(text: widget.event.venue);
     _sponsorController = TextEditingController(text: widget.event.sponser);
     _selectedDate = widget.event.date;
@@ -40,7 +43,6 @@ class _EditEventScreenState extends ConsumerState<EditEventScreen> {
   void dispose() {
     _titleController.dispose();
     _descriptionController.dispose();
-    _imageController.dispose();
     _venueController.dispose();
     _sponsorController.dispose();
     super.dispose();
@@ -61,6 +63,17 @@ class _EditEventScreenState extends ConsumerState<EditEventScreen> {
     }
   }
 
+  void _handleImage(BuildContext context, WidgetRef ref) async {
+    final pickedFile = await ImageHandler.pickImage();
+
+    if (pickedFile != null) {
+      setState(() {
+        imgUrl = pickedFile;
+      });
+      Logger().i("Image uploaded is $pickedFile");
+    }
+  }
+
   Future<void> _saveEvent() async {
     if (!_formKey.currentState!.validate()) return;
 
@@ -71,10 +84,15 @@ class _EditEventScreenState extends ConsumerState<EditEventScreen> {
       return;
     }
 
+    String? uploadedImageUrl = widget.event.image;
+    if (imgUrl != null) {
+      uploadedImageUrl = await ImageHandler.uploadImage(imgUrl!, 'event');
+    }
+
     final updatedEvent = widget.event.copyWith(
       eventName: _titleController.text.trim(),
       description: _descriptionController.text.trim(),
-      image: _imageController.text.trim(),
+      image: uploadedImageUrl,
       venue: _venueController.text.trim(),
       sponser: _sponsorController.text.trim(),
       date: _selectedDate!,
@@ -101,6 +119,18 @@ class _EditEventScreenState extends ConsumerState<EditEventScreen> {
           key: _formKey,
           child: ListView(
             children: [
+              Align(
+                alignment: Alignment.center,
+                child: CircleAvatar(
+                  radius: 50,
+                  child: InkWell(
+                    onTap: () => _handleImage(context, ref),
+                    child: Icon(
+                      Icons.camera_alt,
+                    ),
+                  ),
+                ),
+              ),
               TextFormField(
                 controller: _titleController,
                 decoration: const InputDecoration(labelText: 'Event Title'),
@@ -115,13 +145,6 @@ class _EditEventScreenState extends ConsumerState<EditEventScreen> {
                 validator: (val) => val == null || val.isEmpty
                     ? 'Description is required'
                     : null,
-              ),
-              const SizedBox(height: 12),
-              TextFormField(
-                controller: _imageController,
-                decoration: const InputDecoration(labelText: 'Image URL'),
-                validator: (val) =>
-                    val == null || val.isEmpty ? 'Image URL is required' : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
