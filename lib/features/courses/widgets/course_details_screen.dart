@@ -1,8 +1,9 @@
+import 'package:admin_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/course_model/course_model.dart';
 import '../../../providers/courses_provider.dart';
-import 'edit_course_details.dart';
+import 'edit_course.dart';
 
 class CourseDetailScreen extends ConsumerStatefulWidget {
   final CourseModel course;
@@ -25,6 +26,9 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Course Details'),
+      ),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -33,36 +37,11 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
               children: [
                 // Header Image
                 ClipRRect(
-                  // borderRadius: const BorderRadius.only(
-                  //   bottomLeft: Radius.circular(30),
-                  //   bottomRight: Radius.circular(30),
-                  // ),
-                  child: Stack(
-                    children: [
-                      Image.network(
-                        _course.image ?? 'https://via.placeholder.com/400x300',
-                        height: 280,
-                        width: double.infinity,
-                        fit: BoxFit.fill,
-                      ),
-                      // Container(
-                      //   height: 280,
-                      //   width: double.infinity,
-                      //   color: Colors.black.withOpacity(0.3),
-                      // ),
-                      Positioned(
-                        top: 20,
-                        left: 16,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.black.withOpacity(0.6),
-                          child: IconButton(
-                            icon: const Icon(Icons.arrow_back,
-                                color: Colors.white),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                        ),
-                      ),
-                    ],
+                  child: Image.network(
+                    _course.image ?? 'https://via.placeholder.com/400x300',
+                    height: MediaQuery.sizeOf(context).height / 2.5,
+                    width: double.infinity,
+                    fit: BoxFit.fill,
                   ),
                 ),
 
@@ -169,7 +148,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                        backgroundColor: AppColors.primary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),

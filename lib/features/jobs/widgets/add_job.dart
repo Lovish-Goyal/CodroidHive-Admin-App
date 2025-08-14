@@ -28,7 +28,7 @@ class _AddJobScreenState extends ConsumerState<AddJobScreen> {
   final _salaryMinController = TextEditingController();
   final _salaryMaxController = TextEditingController();
   final _currencyController = TextEditingController();
-  final _tagsController = TextEditingController(); // comma-separated
+  final _tagsController = TextEditingController();
   final _qualificationsController = TextEditingController();
   final _responsibilitiesController = TextEditingController();
   final _requirementsController = TextEditingController();
@@ -69,7 +69,7 @@ class _AddJobScreenState extends ConsumerState<AddJobScreen> {
 
   Future<void> _addJob() async {
     if (_formKey.currentState?.validate() ?? false) {
-      final image = await ImageHandler.uploadImage(imgUrl!);
+      final image = await ImageHandler.uploadImage(imgUrl!, 'job');
       final job = JobModel(
         id: const Uuid().v4(),
         title: _titleController.text.trim(),

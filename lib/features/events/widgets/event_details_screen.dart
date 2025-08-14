@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/event_model/event_model.dart';
 import '../../../providers/events_provider.dart';
-import 'edit_details.dart';
+import 'edit_event.dart';
 
 class EventDetailScreen extends ConsumerStatefulWidget {
   final EventModel event;
@@ -38,7 +38,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
                   _event.image!,
                   width: double.infinity,
                   height: 350,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.contain,
                   errorBuilder: (_, __, ___) => Image.asset(
                     'assets/images/default.jpg',
                     width: double.infinity,

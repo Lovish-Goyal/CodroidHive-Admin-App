@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:uuid/uuid.dart';
-import '../../models/course_model/course_model.dart';
+import '../../constants/colors.dart';
 import '../../providers/courses_provider.dart';
 import 'widgets/add_course.dart';
 import 'widgets/course_details_screen.dart';
@@ -14,91 +13,16 @@ class CoursesScreen extends ConsumerStatefulWidget {
 }
 
 class _CoursesScreenState extends ConsumerState<CoursesScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final _titleController = TextEditingController();
-  final _subtitleController = TextEditingController();
-  final _descriptionController = TextEditingController();
-  final _imageController = TextEditingController();
-  final _instructorController = TextEditingController();
-  final _instructorImageController = TextEditingController();
-  final _currencyController = TextEditingController(text: 'USD');
-  final _videoUrlController = TextEditingController();
-  final _certificateUrlController = TextEditingController();
-  final _tagsController = TextEditingController();
-  final _languageController = TextEditingController(text: 'English');
-  final _levelController = TextEditingController();
-
-  double? _price;
-  int? _durationHours;
-  int? _totalModules;
-  bool _isFree = false;
-
   // Search & sorting state
   String _searchQuery = '';
   bool _sortByLatest = true;
-
-  Future<void> _addCourse() async {
-    if (_formKey.currentState?.validate() ?? false) {
-      final course = CourseModel(
-        id: const Uuid().v4(),
-        title: _titleController.text.trim(),
-        subtitle: _subtitleController.text.trim(),
-        description: _descriptionController.text.trim(),
-        image: _imageController.text.trim(),
-        instructor: _instructorController.text.trim(),
-        instructorImage: _instructorImageController.text.trim(),
-        currency: _currencyController.text.trim(),
-        price: _price,
-        durationHours: _durationHours,
-        totalModules: _totalModules,
-        tags: _tagsController.text
-            .split(',')
-            .map((e) => e.trim())
-            .where((e) => e.isNotEmpty)
-            .toList(),
-        language: _languageController.text.trim(),
-        level: _levelController.text.trim(),
-        videoUrl: _videoUrlController.text.trim(),
-        certificateUrl: _certificateUrlController.text.trim(),
-        isFree: _isFree,
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-      );
-
-      await ref.read(courseRepositoryProvider).addCourse(course);
-      Navigator.pop(context);
-      _clearForm();
-      ref.refresh(courseListProvider);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Course added successfully')),
-      );
-    }
-  }
-
-  void _clearForm() {
-    _titleController.clear();
-    _subtitleController.clear();
-    _descriptionController.clear();
-    _imageController.clear();
-    _instructorController.clear();
-    _instructorImageController.clear();
-    _currencyController.text = 'USD';
-    _videoUrlController.clear();
-    _certificateUrlController.clear();
-    _tagsController.clear();
-    _languageController.text = 'English';
-    _levelController.clear();
-    _price = null;
-    _durationHours = null;
-    _totalModules = null;
-    _isFree = false;
-  }
 
   @override
   Widget build(BuildContext context) {
     final courseListAsync = ref.watch(courseListProvider);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12),
@@ -181,7 +105,6 @@ class _CoursesScreenState extends ConsumerState<CoursesScreen> {
                     }
 
                     return GridView.builder(
-                      padding: const EdgeInsets.all(8),
                       itemCount: filteredCourses.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
@@ -202,6 +125,7 @@ class _CoursesScreenState extends ConsumerState<CoursesScreen> {
                             );
                           },
                           child: Card(
+                            color: AppColors.cardBackground,
                             elevation: 3,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -240,17 +164,19 @@ class _CoursesScreenState extends ConsumerState<CoursesScreen> {
                                           overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 14),
+                                              fontSize: 18),
                                         ),
                                         const SizedBox(height: 4),
                                         Expanded(
                                           child: Text(
+                                            textAlign: TextAlign.justify,
                                             course.description,
                                             maxLines: 4,
                                             overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.grey),
+                                                fontSize: 14,
+                                                color: Color.fromARGB(
+                                                    255, 95, 94, 94)),
                                           ),
                                         ),
                                       ],

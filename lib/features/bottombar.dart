@@ -31,9 +31,9 @@ class _BottomBarState extends State<BottomBar> {
     return Scaffold(
       endDrawer: const CustomDrawer(),
       appBar: AppBar(
-        // backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         title: Text(
-          'Community Admin Panel',
+          'CodroidHive Admin',
           style: const TextStyle(
               color: Color.fromARGB(255, 10, 29, 86),
               fontWeight: FontWeight.bold),

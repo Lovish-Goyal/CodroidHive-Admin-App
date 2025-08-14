@@ -1,13 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 import '../models/jobs_model/jobs_model.dart';
 import 'firestore_provider.dart';
-import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
 
 final jobRepositoryProvider = Provider<JobRepository>((ref) {
   final firestore = ref.read(firestoreProvider);

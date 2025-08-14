@@ -81,10 +81,13 @@ class _EditJobScreenState extends ConsumerState<EditJobScreen> {
 
   Future<void> _saveJob() async {
     if (!_formKey.currentState!.validate()) return;
-    final image = await ImageHandler.uploadImage(imgUrl!);
+    String? uploadedImageUrl = widget.job.image;
+    if (imgUrl != null) {
+      uploadedImageUrl = await ImageHandler.uploadImage(imgUrl!, 'job');
+    }
 
     final updatedJob = widget.job.copyWith(
-      image: image,
+      image: uploadedImageUrl,
       title: _titleController.text.trim(),
       description: _descriptionController.text.trim(),
       subtitle: _subtitleController.text.trim(),

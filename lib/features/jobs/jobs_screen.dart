@@ -1,7 +1,8 @@
+import 'package:admin_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/jobs_provider.dart';
-import 'widgets/add_job_screen.dart';
+import 'widgets/add_job.dart';
 import 'widgets/jobs_details_screen.dart';
 
 class JobsScreen extends ConsumerStatefulWidget {
@@ -20,6 +21,7 @@ class _JobsScreenState extends ConsumerState<JobsScreen> {
     final jobListAsync = ref.watch(jobListProvider);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12),
@@ -113,6 +115,7 @@ class _JobsScreenState extends ConsumerState<JobsScreen> {
                             );
                           },
                           child: Card(
+                            color: AppColors.cardBackground,
                             elevation: 3,
                             margin: const EdgeInsets.symmetric(vertical: 8),
                             shape: RoundedRectangleBorder(

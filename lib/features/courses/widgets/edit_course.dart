@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 import '../../../models/course_model/course_model.dart';
 import '../../../providers/courses_provider.dart';
+import '../../../utils/image_handler.dart';
 
 class EditCourseScreen extends ConsumerStatefulWidget {
   final CourseModel course;
@@ -18,7 +22,6 @@ class _EditCourseScreenState extends ConsumerState<EditCourseScreen> {
   late TextEditingController _titleController;
   late TextEditingController _subtitleController;
   late TextEditingController _descriptionController;
-  late TextEditingController _imageController;
   late TextEditingController _instructorController;
   late TextEditingController _instructorImageController;
   late TextEditingController _priceController;
@@ -32,6 +35,7 @@ class _EditCourseScreenState extends ConsumerState<EditCourseScreen> {
   late TextEditingController _certificateUrlController;
 
   bool _isFree = false;
+  File? imgUrl;
 
   @override
   void initState() {
@@ -40,7 +44,6 @@ class _EditCourseScreenState extends ConsumerState<EditCourseScreen> {
     _titleController = TextEditingController(text: course.title);
     _subtitleController = TextEditingController(text: course.subtitle ?? '');
     _descriptionController = TextEditingController(text: course.description);
-    _imageController = TextEditingController(text: course.image ?? '');
     _instructorController = TextEditingController(text: course.instructor);
     _instructorImageController =
         TextEditingController(text: course.instructorImage ?? '');
@@ -67,7 +70,6 @@ class _EditCourseScreenState extends ConsumerState<EditCourseScreen> {
     _titleController.dispose();
     _subtitleController.dispose();
     _descriptionController.dispose();
-    _imageController.dispose();
     _instructorController.dispose();
     _instructorImageController.dispose();
     _priceController.dispose();
@@ -82,13 +84,28 @@ class _EditCourseScreenState extends ConsumerState<EditCourseScreen> {
     super.dispose();
   }
 
+  void _handleImage(BuildContext context, WidgetRef ref) async {
+    final pickedFile = await ImageHandler.pickImage();
+
+    if (pickedFile != null) {
+      setState(() {
+        imgUrl = pickedFile;
+      });
+      Logger().i("Image uploaded is $pickedFile");
+    }
+  }
+
   Future<void> _updateCourse() async {
     if (_formKey.currentState?.validate() ?? false) {
+      String? uploadedImageUrl = widget.course.image;
+      if (imgUrl != null) {
+        uploadedImageUrl = await ImageHandler.uploadImage(imgUrl!, 'event');
+      }
       final updatedCourse = widget.course.copyWith(
+        image: uploadedImageUrl,
         title: _titleController.text.trim(),
         subtitle: _subtitleController.text.trim(),
         description: _descriptionController.text.trim(),
-        image: _imageController.text.trim(),
         instructor: _instructorController.text.trim(),
         instructorImage: _instructorImageController.text.trim(),
         price: _priceController.text.isNotEmpty
@@ -135,11 +152,22 @@ class _EditCourseScreenState extends ConsumerState<EditCourseScreen> {
           key: _formKey,
           child: Column(
             children: [
+              Align(
+                alignment: Alignment.center,
+                child: CircleAvatar(
+                  radius: 50,
+                  child: InkWell(
+                    onTap: () => _handleImage(context, ref),
+                    child: Icon(
+                      Icons.camera_alt,
+                    ),
+                  ),
+                ),
+              ),
               _buildTextField(_titleController, 'Title', required: true),
               _buildTextField(_subtitleController, 'Subtitle'),
               _buildTextField(_descriptionController, 'Description',
                   required: true),
-              _buildTextField(_imageController, 'Image URL'),
               _buildTextField(_instructorController, 'Instructor',
                   required: true),
               _buildTextField(

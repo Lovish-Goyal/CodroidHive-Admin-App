@@ -1,3 +1,4 @@
+import 'package:admin_app/features/notifications/notifications_screen.dart';
 import 'package:admin_app/features/settings/setting_screen.dart';
 import 'package:go_router/go_router.dart';
 import '../auth/login_screen.dart';
@@ -26,6 +27,11 @@ final GoRouter _router = GoRouter(
       path: '/users',
       name: 'user',
       builder: (context, state) => const UsersScreen(),
+    ),
+    GoRoute(
+      path: '/notifications',
+      name: 'notifications',
+      builder: (context, state) => const NotificationScreen(),
     ),
 
     // Add more routes like this as needed:
