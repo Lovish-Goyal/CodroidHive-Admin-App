@@ -108,10 +108,10 @@ class _CoursesScreenState extends ConsumerState<CoursesScreen> {
                       itemCount: filteredCourses.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 1,
-                        mainAxisSpacing: 12,
-                        crossAxisSpacing: 12,
-                      ),
+                              crossAxisCount: 1,
+                              mainAxisSpacing: 12,
+                              crossAxisSpacing: 12,
+                              mainAxisExtent: 420),
                       itemBuilder: (context, index) {
                         final course = filteredCourses[index];
                         return GestureDetector(
@@ -160,24 +160,76 @@ class _CoursesScreenState extends ConsumerState<CoursesScreen> {
                                       children: [
                                         Text(
                                           course.title,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                        const SizedBox(height: 12),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.person,
+                                                  size: 18,
+                                                ),
+                                                SizedBox(
+                                                  width: 8,
+                                                ),
+                                                Text(
+                                                  "Devashish Kumar",
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Icon(Icons.lock_clock),
+                                                SizedBox(
+                                                  width: 8,
+                                                ),
+                                                Text(
+                                                  "30 (hrs)",
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 12),
+                                        Text(
+                                          textAlign: TextAlign.justify,
+                                          course.description,
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
+                                              color: Color.fromARGB(
+                                                  255, 95, 94, 94)),
                                         ),
-                                        const SizedBox(height: 4),
-                                        Expanded(
-                                          child: Text(
-                                            textAlign: TextAlign.justify,
-                                            course.description,
-                                            maxLines: 4,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                fontSize: 14,
-                                                color: Color.fromARGB(
-                                                    255, 95, 94, 94)),
-                                          ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          'Price: ${course.price.toString()}',
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Level:",
+                                              style:
+                                                  const TextStyle(fontSize: 16),
+                                            ),
+                                            SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text(
+                                              course.level!,
+                                              style:
+                                                  const TextStyle(fontSize: 16),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),

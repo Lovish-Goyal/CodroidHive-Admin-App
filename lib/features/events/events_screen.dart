@@ -133,7 +133,7 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                     ),
                                     child: Image.network(
                                       event.image!,
-                                      height: 250,
+                                      height: 200,
                                       width: double.infinity,
                                       fit: BoxFit.fill,
                                       errorBuilder: (_, __, ___) => Container(
@@ -153,7 +153,7 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                   )
                                 else
                                   Container(
-                                    height: 180,
+                                    height: 200,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                       color: Colors.grey.shade300,
@@ -187,7 +187,7 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(fontSize: 14),
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 12),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -220,6 +220,7 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                           ),
                                         ],
                                       ),
+                                      const SizedBox(height: 8),
                                     ],
                                   ),
                                 ),
