@@ -63,6 +63,13 @@ class _AddEventScreenState extends ConsumerState<AddEventScreen> {
         return;
       }
 
+      if (imgUrl == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please select an Image')),
+        );
+        return;
+      }
+
       final image = await ImageHandler.uploadImage(imgUrl!, 'event');
 
       final event = EventModel(
@@ -78,7 +85,7 @@ class _AddEventScreenState extends ConsumerState<AddEventScreen> {
       );
 
       await ref.read(eventRepositoryProvider).addEvent(event);
-      ref.refresh(eventListProvider);
+      ref.invalidate(eventListProvider);
       if (mounted) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(

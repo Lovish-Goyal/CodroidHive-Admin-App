@@ -78,7 +78,7 @@ class _AddCourseScreenState extends ConsumerState<AddCourseScreen> {
       );
 
       await ref.read(courseRepositoryProvider).addCourse(newCourse);
-      ref.refresh(courseListProvider);
+      ref.invalidate(courseListProvider);
 
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(

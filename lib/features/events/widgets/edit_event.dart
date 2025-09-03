@@ -100,7 +100,7 @@ class _EditEventScreenState extends ConsumerState<EditEventScreen> {
     );
 
     await ref.read(eventRepositoryProvider).updateEvent(updatedEvent);
-    ref.refresh(eventListProvider);
+    ref.invalidate(eventListProvider);
 
     Navigator.pop(context, updatedEvent);
   }

@@ -98,7 +98,7 @@ class _AddJobScreenState extends ConsumerState<AddJobScreen> {
       );
 
       await ref.read(jobRepositoryProvider).addJob(job);
-      ref.refresh(jobListProvider);
+      ref.invalidate(jobListProvider);
       if (mounted) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(

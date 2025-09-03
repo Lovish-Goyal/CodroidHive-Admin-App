@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/user_model/user_model.dart';
-import '../../../providers/user_provider.dart';
 
 class EditUserScreen extends ConsumerStatefulWidget {
   final UserModel user;

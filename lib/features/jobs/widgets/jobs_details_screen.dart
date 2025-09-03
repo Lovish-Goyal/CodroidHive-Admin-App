@@ -286,7 +286,7 @@ class _JobDetailScreenState extends ConsumerState<JobDetailScreen> {
                       setState(() {
                         _job = updated;
                       });
-                      ref.refresh(jobListProvider);
+                      ref.invalidate(jobListProvider);
                     }
                   },
                   icon: const Icon(
@@ -326,7 +326,7 @@ class _JobDetailScreenState extends ConsumerState<JobDetailScreen> {
                     );
                     if (confirm == true) {
                       await ref.read(jobRepositoryProvider).deleteJob(_job.id);
-                      ref.refresh(jobListProvider);
+                      ref.invalidate(jobListProvider);
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

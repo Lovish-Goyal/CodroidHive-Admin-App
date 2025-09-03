@@ -103,15 +103,14 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                               .toList(),
                         ),
                       ],
-                      if (_course.description != null &&
-                          _course.description!.isNotEmpty) ...[
+                      if (_course.description.isNotEmpty) ...[
                         const SizedBox(height: 24),
                         const Text("Course Description",
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold)),
                         const SizedBox(height: 8),
                         Text(
-                          _course.description!,
+                          _course.description,
                           style: const TextStyle(fontSize: 16),
                         ),
                       ],
@@ -144,7 +143,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                         );
                         if (updated != null) {
                           setState(() => _course = updated);
-                          ref.refresh(courseListProvider);
+                          ref.invalidate(courseListProvider);
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -189,7 +188,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                           await ref
                               .read(courseRepositoryProvider)
                               .deleteCourse(_course.id);
-                          ref.refresh(courseListProvider);
+                          ref.invalidate(courseListProvider);
                           Navigator.pop(context);
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

@@ -82,7 +82,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
                     setState(() {
                       _event = updated;
                     });
-                    ref.refresh(eventListProvider);
+                    ref.invalidate(eventListProvider);
                   }
                 },
                 child: const Text('Update Event'),
@@ -117,7 +117,7 @@ class _EventDetailScreenState extends ConsumerState<EventDetailScreen> {
                     await ref
                         .read(eventRepositoryProvider)
                         .deleteEvent(_event.id);
-                    ref.refresh(eventListProvider);
+                    ref.invalidate(eventListProvider);
                     Navigator.pop(context); // Close detail screen
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

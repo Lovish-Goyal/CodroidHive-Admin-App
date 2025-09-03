@@ -111,7 +111,7 @@ class _EditJobScreenState extends ConsumerState<EditJobScreen> {
     );
 
     await ref.read(jobRepositoryProvider).updateJob(updatedJob);
-    ref.refresh(jobListProvider);
+    ref.invalidate(jobListProvider);
     Navigator.pop(context, updatedJob);
   }
 

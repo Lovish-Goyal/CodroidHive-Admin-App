@@ -132,7 +132,7 @@ class _EditCourseScreenState extends ConsumerState<EditCourseScreen> {
       );
 
       await ref.read(courseRepositoryProvider).updateCourse(updatedCourse);
-      ref.refresh(courseListProvider);
+      ref.invalidate(courseListProvider);
 
       Navigator.pop(context, updatedCourse);
 
