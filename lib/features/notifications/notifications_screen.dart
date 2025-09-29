@@ -1,7 +1,8 @@
 import 'dart:convert';
-import 'package:admin_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import '../../constants/colors.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -63,8 +64,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   children: [
                     RadioListTile<bool>(
                       title: const Text('Send to All Users'),
-                      subtitle:
-                          const Text('Broadcast notification to everyone'),
+                      subtitle: const Text(
+                        'Broadcast notification to everyone',
+                      ),
                       value: true,
                       groupValue: _sendToAll,
                       onChanged: (value) {
@@ -80,8 +82,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     const Divider(height: 1),
                     RadioListTile<bool>(
                       title: const Text('Send to Specific User'),
-                      subtitle:
-                          const Text('Send notification to one user by email'),
+                      subtitle: const Text(
+                        'Send notification to one user by email',
+                      ),
                       value: false,
                       groupValue: _sendToAll,
                       onChanged: (value) {
@@ -130,8 +133,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       if (value == null || value.trim().isEmpty) {
                         return 'Please enter recipient email';
                       }
-                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                          .hasMatch(value.trim())) {
+                      if (!RegExp(
+                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      ).hasMatch(value.trim())) {
                         return 'Please enter a valid email address';
                       }
                     }
@@ -256,9 +260,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           children: [
                             const Icon(Icons.send),
                             const SizedBox(width: 8),
-                            Text(_sendToAll
-                                ? 'Send to All Users'
-                                : 'Send to User'),
+                            Text(
+                              _sendToAll ? 'Send to All Users' : 'Send to User',
+                            ),
                           ],
                         ),
                 ),
@@ -302,9 +306,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(_sendToAll
-                ? 'Notification sent to all users!'
-                : 'Notification sent to ${_emailController.text}!'),
+            content: Text(
+              _sendToAll
+                  ? 'Notification sent to all users!'
+                  : 'Notification sent to ${_emailController.text}!',
+            ),
             backgroundColor: Colors.green,
           ),
         );

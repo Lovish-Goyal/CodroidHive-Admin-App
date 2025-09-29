@@ -1,6 +1,6 @@
-import 'package:admin_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../constants/colors.dart';
 import '../../providers/jobs_provider.dart';
 import 'widgets/add_job.dart';
 import 'widgets/jobs_details_screen.dart';
@@ -51,14 +51,8 @@ class _JobsScreenState extends ConsumerState<JobsScreen> {
                   DropdownButton<bool>(
                     value: sortByLatest,
                     items: const [
-                      DropdownMenuItem(
-                        value: true,
-                        child: Text('Latest'),
-                      ),
-                      DropdownMenuItem(
-                        value: false,
-                        child: Text('Oldest'),
-                      ),
+                      DropdownMenuItem(value: true, child: Text('Latest')),
+                      DropdownMenuItem(value: false, child: Text('Oldest')),
                     ],
                     onChanged: (value) {
                       if (value != null) {
@@ -85,17 +79,20 @@ class _JobsScreenState extends ConsumerState<JobsScreen> {
 
                     // Filter and sort jobs
                     final filteredJobs = jobs
-                        .where((job) =>
-                                job.title.toLowerCase().contains(searchQuery)
-                            // ||
-                            // (job.description?.toLowerCase() ?? '')
-                            //     .contains(searchQuery)
-                            )
+                        .where(
+                          (job) =>
+                              job.title.toLowerCase().contains(searchQuery),
+                          // ||
+                          // (job.description?.toLowerCase() ?? '')
+                          //     .contains(searchQuery)
+                        )
                         .toList();
 
-                    filteredJobs.sort((a, b) => sortByLatest
-                        ? b.createdAt.compareTo(a.createdAt)
-                        : a.createdAt.compareTo(b.createdAt));
+                    filteredJobs.sort(
+                      (a, b) => sortByLatest
+                          ? b.createdAt.compareTo(a.createdAt)
+                          : a.createdAt.compareTo(b.createdAt),
+                    );
 
                     if (filteredJobs.isEmpty) {
                       return const Center(child: Text('No results found.'));
@@ -146,8 +143,11 @@ class _JobsScreenState extends ConsumerState<JobsScreen> {
                                         color: Colors.grey.shade300,
                                         borderRadius: BorderRadius.circular(8),
                                       ),
-                                      child: const Icon(Icons.business,
-                                          size: 32, color: Colors.grey),
+                                      child: const Icon(
+                                        Icons.business,
+                                        size: 32,
+                                        color: Colors.grey,
+                                      ),
                                     ),
                                   const SizedBox(width: 16),
                                   // Job details
@@ -186,7 +186,8 @@ class _JobsScreenState extends ConsumerState<JobsScreen> {
                                                   Text(
                                                     job.location!,
                                                     style: const TextStyle(
-                                                        fontSize: 12),
+                                                      fontSize: 12,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -197,8 +198,9 @@ class _JobsScreenState extends ConsumerState<JobsScreen> {
                                                   .split('T')
                                                   .first,
                                               style: const TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey),
+                                                fontSize: 12,
+                                                color: Colors.grey,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -240,7 +242,7 @@ class _JobsScreenState extends ConsumerState<JobsScreen> {
                 color: Colors.black.withOpacity(0.3),
                 blurRadius: 8,
                 offset: const Offset(2, 4),
-              )
+              ),
             ],
           ),
           child: const Row(
@@ -250,8 +252,10 @@ class _JobsScreenState extends ConsumerState<JobsScreen> {
               SizedBox(width: 6),
               Text(
                 'Add Job',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),

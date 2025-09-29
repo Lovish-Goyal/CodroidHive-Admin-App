@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:admin_app/utils/image_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
@@ -9,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../../models/event_model/event_model.dart';
 import '../../../providers/events_provider.dart';
+import '../../../utils/image_handler.dart';
 
 class AddEventScreen extends ConsumerStatefulWidget {
   const AddEventScreen({super.key});
@@ -57,16 +56,16 @@ class _AddEventScreenState extends ConsumerState<AddEventScreen> {
   Future<void> _addEvent() async {
     if (_formKey.currentState?.validate() ?? false) {
       if (_selectedDate == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please select a date')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Please select a date')));
         return;
       }
 
       if (imgUrl == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please select an Image')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Please select an Image')));
         return;
       }
 
@@ -115,9 +114,7 @@ class _AddEventScreenState extends ConsumerState<AddEventScreen> {
                   radius: 50,
                   child: InkWell(
                     onTap: () => _handleImage(context, ref),
-                    child: Icon(
-                      Icons.camera_alt,
-                    ),
+                    child: Icon(Icons.camera_alt),
                   ),
                 ),
               ),

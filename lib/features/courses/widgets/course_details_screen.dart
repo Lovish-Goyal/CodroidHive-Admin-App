@@ -1,6 +1,6 @@
-import 'package:admin_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../constants/colors.dart';
 import '../../../models/course_model/course_model.dart';
 import '../../../providers/courses_provider.dart';
 import 'edit_course.dart';
@@ -26,9 +26,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Course Details'),
-      ),
+      appBar: AppBar(title: Text('Course Details')),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -47,8 +45,10 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
 
                 // Course Details
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 24,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -66,7 +66,9 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                           child: Text(
                             _course.subtitle!,
                             style: TextStyle(
-                                fontSize: 16, color: Colors.grey[700]),
+                              fontSize: 16,
+                              color: Colors.grey[700],
+                            ),
                           ),
                         ),
                       const SizedBox(height: 20),
@@ -74,40 +76,56 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                       _buildDetail("Language", _course.language),
                       _buildDetail("Level", _course.level),
                       _buildDetail(
-                          "Duration (hrs)", _course.durationHours?.toString()),
+                        "Duration (hrs)",
+                        _course.durationHours?.toString(),
+                      ),
                       _buildDetail("Modules", _course.totalModules?.toString()),
                       _buildDetail(
-                          "Price",
-                          _course.isFree
-                              ? "Free"
-                              : '${_course.currency ?? ''} ${_course.price?.toStringAsFixed(2) ?? ''}'),
+                        "Price",
+                        _course.isFree
+                            ? "Free"
+                            : '${_course.currency ?? ''} ${_course.price?.toStringAsFixed(2) ?? ''}',
+                      ),
                       const SizedBox(height: 20),
                       if (_course.tags != null && _course.tags!.isNotEmpty) ...[
-                        const Text("What You’ll Learn",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold)),
+                        const Text(
+                          "What You’ll Learn",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         const SizedBox(height: 10),
                         Wrap(
                           spacing: 8,
                           runSpacing: 8,
                           children: _course.tags!
-                              .map((tag) => Chip(
-                                    backgroundColor: const Color.fromARGB(
-                                        221, 102, 102, 102),
-                                    label: Text(
-                                      tag,
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
-                                  ))
+                              .map(
+                                (tag) => Chip(
+                                  backgroundColor: const Color.fromARGB(
+                                    221,
+                                    102,
+                                    102,
+                                    102,
+                                  ),
+                                  label: Text(
+                                    tag,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              )
                               .toList(),
                         ),
                       ],
                       if (_course.description.isNotEmpty) ...[
                         const SizedBox(height: 24),
-                        const Text("Course Description",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold)),
+                        const Text(
+                          "Course Description",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         const SizedBox(height: 8),
                         Text(
                           _course.description,
@@ -155,7 +173,9 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                       child: const Text(
                         'Update',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -168,7 +188,8 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                           builder: (context) => AlertDialog(
                             title: const Text('Delete Course'),
                             content: const Text(
-                                'Are you sure you want to delete this course?'),
+                              'Are you sure you want to delete this course?',
+                            ),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context, false),
@@ -192,7 +213,8 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                           Navigator.pop(context);
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content: Text('Course deleted successfully')),
+                              content: Text('Course deleted successfully'),
+                            ),
                           );
                         }
                       },
@@ -205,7 +227,9 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                       child: const Text(
                         'Delete',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -228,9 +252,10 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
           Text(
             "$label: ",
             style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-                color: Colors.black87),
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+              color: Colors.black87,
+            ),
           ),
           Expanded(
             child: Text(

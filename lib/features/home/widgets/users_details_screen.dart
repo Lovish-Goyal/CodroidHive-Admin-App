@@ -69,8 +69,9 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
             const SizedBox(height: 4),
             Text(
               _user.role,
-              style:
-                  theme.textTheme.labelLarge?.copyWith(color: Colors.grey[600]),
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: Colors.grey[600],
+              ),
             ),
             const SizedBox(height: 24),
 
@@ -100,19 +101,18 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: Colors.grey,
-                    )),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    color: Colors.grey,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   value,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black87,
-                  ),
+                  style: const TextStyle(fontSize: 16, color: Colors.black87),
                 ),
               ],
             ),
@@ -125,9 +125,7 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
   Future<void> _handleEdit() async {
     final updated = await Navigator.push<UserModel>(
       context,
-      MaterialPageRoute(
-        builder: (_) => EditUserScreen(user: _user),
-      ),
+      MaterialPageRoute(builder: (_) => EditUserScreen(user: _user)),
     );
 
     // if (updated != null) {
@@ -152,10 +150,7 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text(
-              'Delete',
-              style: TextStyle(color: Colors.red),
-            ),
+            child: const Text('Delete', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -164,9 +159,9 @@ class _UserDetailScreenState extends ConsumerState<UserDetailScreen> {
     if (confirm == true) {
       await ref.read(userProvider.notifier).deleteUser(_user.id);
       Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('User deleted')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('User deleted')));
     }
   }
 }

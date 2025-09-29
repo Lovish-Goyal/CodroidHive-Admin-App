@@ -1,8 +1,8 @@
-import 'package:admin_app/features/notifications/notifications_screen.dart';
-import 'package:admin_app/features/settings/setting_screen.dart';
 import 'package:go_router/go_router.dart';
 import '../auth/login_screen.dart';
 import '../features/bottombar.dart';
+import '../features/notifications/notifications_screen.dart';
+import '../features/settings/setting_screen.dart';
 import '../features/users/users_screen.dart';
 
 final GoRouter _router = GoRouter(

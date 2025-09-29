@@ -1,6 +1,6 @@
-import 'package:admin_app/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../constants/colors.dart';
 import '../../providers/dashboard_provider.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -145,8 +145,10 @@ class _DashboardStat extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(title,
-                      style: TextStyle(fontSize: 14, color: Colors.grey[700])),
+                  Text(
+                    title,
+                    style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                  ),
                 ],
               ),
             ],

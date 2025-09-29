@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:admin_app/features/courses/courses_screen.dart';
-import 'package:admin_app/features/events/events_screen.dart';
-import 'package:admin_app/features/home/home_screen.dart';
-import 'package:admin_app/features/jobs/jobs_screen.dart';
 import '../shared/custom_drawer.dart';
+import 'courses/courses_screen.dart';
+import 'events/events_screen.dart';
+import 'home/home_screen.dart';
+import 'jobs/jobs_screen.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -35,8 +35,9 @@ class _BottomBarState extends State<BottomBar> {
         title: Text(
           'CodroidHive Admin',
           style: const TextStyle(
-              color: Color.fromARGB(255, 10, 29, 86),
-              fontWeight: FontWeight.bold),
+            color: Color.fromARGB(255, 10, 29, 86),
+            fontWeight: FontWeight.bold,
+          ),
         ),
         iconTheme: const IconThemeData(color: Color.fromARGB(255, 10, 29, 86)),
       ),
@@ -51,13 +52,21 @@ class _BottomBarState extends State<BottomBar> {
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined), label: 'Home'),
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.work_outline), label: 'Jobs'),
+            icon: Icon(Icons.work_outline),
+            label: 'Jobs',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.event_note), label: 'Events'),
+            icon: Icon(Icons.event_note),
+            label: 'Events',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.school_outlined), label: 'Courses'),
+            icon: Icon(Icons.school_outlined),
+            label: 'Courses',
+          ),
         ],
       ),
     );

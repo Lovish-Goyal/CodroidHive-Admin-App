@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:admin_app/utils/image_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +6,7 @@ import 'package:logger/logger.dart';
 
 import '../../../models/event_model/event_model.dart';
 import '../../../providers/events_provider.dart';
+import '../../../utils/image_handler.dart';
 
 class EditEventScreen extends ConsumerStatefulWidget {
   final EventModel event;
@@ -32,8 +31,9 @@ class _EditEventScreenState extends ConsumerState<EditEventScreen> {
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: widget.event.eventName);
-    _descriptionController =
-        TextEditingController(text: widget.event.description);
+    _descriptionController = TextEditingController(
+      text: widget.event.description,
+    );
     _venueController = TextEditingController(text: widget.event.venue);
     _sponsorController = TextEditingController(text: widget.event.sponser);
     _selectedDate = widget.event.date;
@@ -78,9 +78,9 @@ class _EditEventScreenState extends ConsumerState<EditEventScreen> {
     if (!_formKey.currentState!.validate()) return;
 
     if (_selectedDate == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select a date')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Please select a date')));
       return;
     }
 
@@ -125,9 +125,7 @@ class _EditEventScreenState extends ConsumerState<EditEventScreen> {
                   radius: 50,
                   child: InkWell(
                     onTap: () => _handleImage(context, ref),
-                    child: Icon(
-                      Icons.camera_alt,
-                    ),
+                    child: Icon(Icons.camera_alt),
                   ),
                 ),
               ),

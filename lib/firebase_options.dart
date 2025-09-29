@@ -64,9 +64,11 @@ class DefaultFirebaseOptions {
     messagingSenderId: '536388308588',
     projectId: 'ch-community-app',
     storageBucket: 'ch-community-app.firebasestorage.app',
-    androidClientId: '536388308588-24o23th7iagj8c14nct1ac6k5du1cgqa.apps.googleusercontent.com',
-    iosClientId: '536388308588-t590t54d5uaajo3g2sog9mmmrt9o7pla.apps.googleusercontent.com',
-    iosBundleId: 'com.example.adminApp',
+    androidClientId:
+        '536388308588-24o23th7iagj8c14nct1ac6k5du1cgqa.apps.googleusercontent.com',
+    iosClientId:
+        '536388308588-t590t54d5uaajo3g2sog9mmmrt9o7pla.apps.googleusercontent.com',
+    iosBundleId: 'com.codroidhub.adminApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -75,9 +77,11 @@ class DefaultFirebaseOptions {
     messagingSenderId: '536388308588',
     projectId: 'ch-community-app',
     storageBucket: 'ch-community-app.firebasestorage.app',
-    androidClientId: '536388308588-24o23th7iagj8c14nct1ac6k5du1cgqa.apps.googleusercontent.com',
-    iosClientId: '536388308588-t590t54d5uaajo3g2sog9mmmrt9o7pla.apps.googleusercontent.com',
-    iosBundleId: 'com.example.adminApp',
+    androidClientId:
+        '536388308588-24o23th7iagj8c14nct1ac6k5du1cgqa.apps.googleusercontent.com',
+    iosClientId:
+        '536388308588-t590t54d5uaajo3g2sog9mmmrt9o7pla.apps.googleusercontent.com',
+    iosBundleId: 'com.codroidhub.adminApp',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
@@ -89,5 +93,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'ch-community-app.firebasestorage.app',
     measurementId: 'G-BY2WV1ZV6R',
   );
-
 }
