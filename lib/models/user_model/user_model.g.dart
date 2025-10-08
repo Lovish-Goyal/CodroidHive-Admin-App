@@ -18,11 +18,15 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       profileImage: json['profileImage'] as String?,
       address: json['address'] as String?,
       dateOfBirth: _$JsonConverterFromJson<Timestamp, DateTime>(
-          json['dateOfBirth'], const TimestampConverter().fromJson),
-      createdAt:
-          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
-      updatedAt:
-          const TimestampConverter().fromJson(json['updatedAt'] as Timestamp),
+        json['dateOfBirth'],
+        const TimestampConverter().fromJson,
+      ),
+      createdAt: const TimestampConverter().fromJson(
+        json['createdAt'] as Timestamp,
+      ),
+      updatedAt: const TimestampConverter().fromJson(
+        json['updatedAt'] as Timestamp,
+      ),
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -37,7 +41,9 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'profileImage': instance.profileImage,
       'address': instance.address,
       'dateOfBirth': _$JsonConverterToJson<Timestamp, DateTime>(
-          instance.dateOfBirth, const TimestampConverter().toJson),
+        instance.dateOfBirth,
+        const TimestampConverter().toJson,
+      ),
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
     };
@@ -45,11 +51,9 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,
   Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
+) => json == null ? null : fromJson(json as Json);
 
 Json? _$JsonConverterToJson<Json, Value>(
   Value? value,
   Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);
+) => value == null ? null : toJson(value);

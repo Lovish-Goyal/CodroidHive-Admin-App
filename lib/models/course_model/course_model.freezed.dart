@@ -12,7 +12,8 @@ part of 'course_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 CourseModel _$CourseModelFromJson(Map<String, dynamic> json) {
   return _CourseModel.fromJson(json);
@@ -55,29 +56,31 @@ mixin _$CourseModel {
 /// @nodoc
 abstract class $CourseModelCopyWith<$Res> {
   factory $CourseModelCopyWith(
-          CourseModel value, $Res Function(CourseModel) then) =
-      _$CourseModelCopyWithImpl<$Res, CourseModel>;
+    CourseModel value,
+    $Res Function(CourseModel) then,
+  ) = _$CourseModelCopyWithImpl<$Res, CourseModel>;
   @useResult
-  $Res call(
-      {String id,
-      String title,
-      String? subtitle,
-      String description,
-      String? image,
-      String instructor,
-      String? instructorImage,
-      double? price,
-      String? currency,
-      int? durationHours,
-      int? totalModules,
-      List<String>? tags,
-      String? language,
-      String? level,
-      String? videoUrl,
-      String? certificateUrl,
-      bool isFree,
-      @TimestampConverter() DateTime createdAt,
-      @TimestampConverter() DateTime updatedAt});
+  $Res call({
+    String id,
+    String title,
+    String? subtitle,
+    String description,
+    String? image,
+    String instructor,
+    String? instructorImage,
+    double? price,
+    String? currency,
+    int? durationHours,
+    int? totalModules,
+    List<String>? tags,
+    String? language,
+    String? level,
+    String? videoUrl,
+    String? certificateUrl,
+    bool isFree,
+    @TimestampConverter() DateTime createdAt,
+    @TimestampConverter() DateTime updatedAt,
+  });
 }
 
 /// @nodoc
@@ -115,84 +118,87 @@ class _$CourseModelCopyWithImpl<$Res, $Val extends CourseModel>
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      subtitle: freezed == subtitle
-          ? _value.subtitle
-          : subtitle // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      instructor: null == instructor
-          ? _value.instructor
-          : instructor // ignore: cast_nullable_to_non_nullable
-              as String,
-      instructorImage: freezed == instructorImage
-          ? _value.instructorImage
-          : instructorImage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      price: freezed == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double?,
-      currency: freezed == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String?,
-      durationHours: freezed == durationHours
-          ? _value.durationHours
-          : durationHours // ignore: cast_nullable_to_non_nullable
-              as int?,
-      totalModules: freezed == totalModules
-          ? _value.totalModules
-          : totalModules // ignore: cast_nullable_to_non_nullable
-              as int?,
-      tags: freezed == tags
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      language: freezed == language
-          ? _value.language
-          : language // ignore: cast_nullable_to_non_nullable
-              as String?,
-      level: freezed == level
-          ? _value.level
-          : level // ignore: cast_nullable_to_non_nullable
-              as String?,
-      videoUrl: freezed == videoUrl
-          ? _value.videoUrl
-          : videoUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      certificateUrl: freezed == certificateUrl
-          ? _value.certificateUrl
-          : certificateUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isFree: null == isFree
-          ? _value.isFree
-          : isFree // ignore: cast_nullable_to_non_nullable
-              as bool,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            title: null == title
+                ? _value.title
+                : title // ignore: cast_nullable_to_non_nullable
+                      as String,
+            subtitle: freezed == subtitle
+                ? _value.subtitle
+                : subtitle // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            description: null == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String,
+            image: freezed == image
+                ? _value.image
+                : image // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            instructor: null == instructor
+                ? _value.instructor
+                : instructor // ignore: cast_nullable_to_non_nullable
+                      as String,
+            instructorImage: freezed == instructorImage
+                ? _value.instructorImage
+                : instructorImage // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            price: freezed == price
+                ? _value.price
+                : price // ignore: cast_nullable_to_non_nullable
+                      as double?,
+            currency: freezed == currency
+                ? _value.currency
+                : currency // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            durationHours: freezed == durationHours
+                ? _value.durationHours
+                : durationHours // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            totalModules: freezed == totalModules
+                ? _value.totalModules
+                : totalModules // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            tags: freezed == tags
+                ? _value.tags
+                : tags // ignore: cast_nullable_to_non_nullable
+                      as List<String>?,
+            language: freezed == language
+                ? _value.language
+                : language // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            level: freezed == level
+                ? _value.level
+                : level // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            videoUrl: freezed == videoUrl
+                ? _value.videoUrl
+                : videoUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            certificateUrl: freezed == certificateUrl
+                ? _value.certificateUrl
+                : certificateUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            isFree: null == isFree
+                ? _value.isFree
+                : isFree // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            createdAt: null == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            updatedAt: null == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -200,30 +206,32 @@ class _$CourseModelCopyWithImpl<$Res, $Val extends CourseModel>
 abstract class _$$CourseModelImplCopyWith<$Res>
     implements $CourseModelCopyWith<$Res> {
   factory _$$CourseModelImplCopyWith(
-          _$CourseModelImpl value, $Res Function(_$CourseModelImpl) then) =
-      __$$CourseModelImplCopyWithImpl<$Res>;
+    _$CourseModelImpl value,
+    $Res Function(_$CourseModelImpl) then,
+  ) = __$$CourseModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String title,
-      String? subtitle,
-      String description,
-      String? image,
-      String instructor,
-      String? instructorImage,
-      double? price,
-      String? currency,
-      int? durationHours,
-      int? totalModules,
-      List<String>? tags,
-      String? language,
-      String? level,
-      String? videoUrl,
-      String? certificateUrl,
-      bool isFree,
-      @TimestampConverter() DateTime createdAt,
-      @TimestampConverter() DateTime updatedAt});
+  $Res call({
+    String id,
+    String title,
+    String? subtitle,
+    String description,
+    String? image,
+    String instructor,
+    String? instructorImage,
+    double? price,
+    String? currency,
+    int? durationHours,
+    int? totalModules,
+    List<String>? tags,
+    String? language,
+    String? level,
+    String? videoUrl,
+    String? certificateUrl,
+    bool isFree,
+    @TimestampConverter() DateTime createdAt,
+    @TimestampConverter() DateTime updatedAt,
+  });
 }
 
 /// @nodoc
@@ -231,8 +239,9 @@ class __$$CourseModelImplCopyWithImpl<$Res>
     extends _$CourseModelCopyWithImpl<$Res, _$CourseModelImpl>
     implements _$$CourseModelImplCopyWith<$Res> {
   __$$CourseModelImplCopyWithImpl(
-      _$CourseModelImpl _value, $Res Function(_$CourseModelImpl) _then)
-      : super(_value, _then);
+    _$CourseModelImpl _value,
+    $Res Function(_$CourseModelImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of CourseModel
   /// with the given fields replaced by the non-null parameter values.
@@ -259,112 +268,114 @@ class __$$CourseModelImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
-    return _then(_$CourseModelImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      subtitle: freezed == subtitle
-          ? _value.subtitle
-          : subtitle // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      instructor: null == instructor
-          ? _value.instructor
-          : instructor // ignore: cast_nullable_to_non_nullable
-              as String,
-      instructorImage: freezed == instructorImage
-          ? _value.instructorImage
-          : instructorImage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      price: freezed == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double?,
-      currency: freezed == currency
-          ? _value.currency
-          : currency // ignore: cast_nullable_to_non_nullable
-              as String?,
-      durationHours: freezed == durationHours
-          ? _value.durationHours
-          : durationHours // ignore: cast_nullable_to_non_nullable
-              as int?,
-      totalModules: freezed == totalModules
-          ? _value.totalModules
-          : totalModules // ignore: cast_nullable_to_non_nullable
-              as int?,
-      tags: freezed == tags
-          ? _value._tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      language: freezed == language
-          ? _value.language
-          : language // ignore: cast_nullable_to_non_nullable
-              as String?,
-      level: freezed == level
-          ? _value.level
-          : level // ignore: cast_nullable_to_non_nullable
-              as String?,
-      videoUrl: freezed == videoUrl
-          ? _value.videoUrl
-          : videoUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      certificateUrl: freezed == certificateUrl
-          ? _value.certificateUrl
-          : certificateUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isFree: null == isFree
-          ? _value.isFree
-          : isFree // ignore: cast_nullable_to_non_nullable
-              as bool,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ));
+    return _then(
+      _$CourseModelImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        title: null == title
+            ? _value.title
+            : title // ignore: cast_nullable_to_non_nullable
+                  as String,
+        subtitle: freezed == subtitle
+            ? _value.subtitle
+            : subtitle // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        description: null == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String,
+        image: freezed == image
+            ? _value.image
+            : image // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        instructor: null == instructor
+            ? _value.instructor
+            : instructor // ignore: cast_nullable_to_non_nullable
+                  as String,
+        instructorImage: freezed == instructorImage
+            ? _value.instructorImage
+            : instructorImage // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        price: freezed == price
+            ? _value.price
+            : price // ignore: cast_nullable_to_non_nullable
+                  as double?,
+        currency: freezed == currency
+            ? _value.currency
+            : currency // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        durationHours: freezed == durationHours
+            ? _value.durationHours
+            : durationHours // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        totalModules: freezed == totalModules
+            ? _value.totalModules
+            : totalModules // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        tags: freezed == tags
+            ? _value._tags
+            : tags // ignore: cast_nullable_to_non_nullable
+                  as List<String>?,
+        language: freezed == language
+            ? _value.language
+            : language // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        level: freezed == level
+            ? _value.level
+            : level // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        videoUrl: freezed == videoUrl
+            ? _value.videoUrl
+            : videoUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        certificateUrl: freezed == certificateUrl
+            ? _value.certificateUrl
+            : certificateUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        isFree: null == isFree
+            ? _value.isFree
+            : isFree // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        createdAt: null == createdAt
+            ? _value.createdAt
+            : createdAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        updatedAt: null == updatedAt
+            ? _value.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CourseModelImpl extends _CourseModel {
-  _$CourseModelImpl(
-      {required this.id,
-      required this.title,
-      this.subtitle,
-      required this.description,
-      this.image,
-      required this.instructor,
-      this.instructorImage,
-      this.price,
-      this.currency,
-      this.durationHours,
-      this.totalModules,
-      final List<String>? tags,
-      this.language,
-      this.level,
-      this.videoUrl,
-      this.certificateUrl,
-      this.isFree = false,
-      @TimestampConverter() required this.createdAt,
-      @TimestampConverter() required this.updatedAt})
-      : _tags = tags,
-        super._();
+  _$CourseModelImpl({
+    required this.id,
+    required this.title,
+    this.subtitle,
+    required this.description,
+    this.image,
+    required this.instructor,
+    this.instructorImage,
+    this.price,
+    this.currency,
+    this.durationHours,
+    this.totalModules,
+    final List<String>? tags,
+    this.language,
+    this.level,
+    this.videoUrl,
+    this.certificateUrl,
+    this.isFree = false,
+    @TimestampConverter() required this.createdAt,
+    @TimestampConverter() required this.updatedAt,
+  }) : _tags = tags,
+       super._();
 
   factory _$CourseModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CourseModelImplFromJson(json);
@@ -465,27 +476,27 @@ class _$CourseModelImpl extends _CourseModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
-        runtimeType,
-        id,
-        title,
-        subtitle,
-        description,
-        image,
-        instructor,
-        instructorImage,
-        price,
-        currency,
-        durationHours,
-        totalModules,
-        const DeepCollectionEquality().hash(_tags),
-        language,
-        level,
-        videoUrl,
-        certificateUrl,
-        isFree,
-        createdAt,
-        updatedAt
-      ]);
+    runtimeType,
+    id,
+    title,
+    subtitle,
+    description,
+    image,
+    instructor,
+    instructorImage,
+    price,
+    currency,
+    durationHours,
+    totalModules,
+    const DeepCollectionEquality().hash(_tags),
+    language,
+    level,
+    videoUrl,
+    certificateUrl,
+    isFree,
+    createdAt,
+    updatedAt,
+  ]);
 
   /// Create a copy of CourseModel
   /// with the given fields replaced by the non-null parameter values.
@@ -497,34 +508,32 @@ class _$CourseModelImpl extends _CourseModel {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CourseModelImplToJson(
-      this,
-    );
+    return _$$CourseModelImplToJson(this);
   }
 }
 
 abstract class _CourseModel extends CourseModel {
-  factory _CourseModel(
-          {required final String id,
-          required final String title,
-          final String? subtitle,
-          required final String description,
-          final String? image,
-          required final String instructor,
-          final String? instructorImage,
-          final double? price,
-          final String? currency,
-          final int? durationHours,
-          final int? totalModules,
-          final List<String>? tags,
-          final String? language,
-          final String? level,
-          final String? videoUrl,
-          final String? certificateUrl,
-          final bool isFree,
-          @TimestampConverter() required final DateTime createdAt,
-          @TimestampConverter() required final DateTime updatedAt}) =
-      _$CourseModelImpl;
+  factory _CourseModel({
+    required final String id,
+    required final String title,
+    final String? subtitle,
+    required final String description,
+    final String? image,
+    required final String instructor,
+    final String? instructorImage,
+    final double? price,
+    final String? currency,
+    final int? durationHours,
+    final int? totalModules,
+    final List<String>? tags,
+    final String? language,
+    final String? level,
+    final String? videoUrl,
+    final String? certificateUrl,
+    final bool isFree,
+    @TimestampConverter() required final DateTime createdAt,
+    @TimestampConverter() required final DateTime updatedAt,
+  }) = _$CourseModelImpl;
   _CourseModel._() : super._();
 
   factory _CourseModel.fromJson(Map<String, dynamic> json) =

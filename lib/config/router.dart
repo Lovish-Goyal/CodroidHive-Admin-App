@@ -1,3 +1,4 @@
+import 'package:community_app_admin/features/news/news_screen.dart';
 import 'package:go_router/go_router.dart';
 import '../auth/login_screen.dart';
 import '../features/bottombar.dart';
@@ -32,6 +33,11 @@ final GoRouter _router = GoRouter(
       path: '/notifications',
       name: 'notifications',
       builder: (context, state) => const NotificationScreen(),
+    ),
+    GoRoute(
+      path: '/news',
+      name: 'news',
+      builder: (context, state) => const NewsScreen(),
     ),
 
     // Add more routes like this as needed:

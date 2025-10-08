@@ -26,10 +26,12 @@ _$JobModelImpl _$$JobModelImplFromJson(Map<String, dynamic> json) =>
       requirements: json['requirements'] as String?,
       applicationUrl: json['applicationUrl'] as String?,
       isRemote: json['isRemote'] as bool? ?? false,
-      createdAt:
-          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
-      updatedAt:
-          const TimestampConverter().fromJson(json['updatedAt'] as Timestamp),
+      createdAt: const TimestampConverter().fromJson(
+        json['createdAt'] as Timestamp,
+      ),
+      updatedAt: const TimestampConverter().fromJson(
+        json['updatedAt'] as Timestamp,
+      ),
     );
 
 Map<String, dynamic> _$$JobModelImplToJson(_$JobModelImpl instance) =>

@@ -24,8 +24,11 @@ class CustomDrawer extends StatelessWidget {
                   CircleAvatar(
                     radius: 28,
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.person,
-                        size: 30, color: Color.fromARGB(255, 10, 29, 86)),
+                    child: Icon(
+                      Icons.person,
+                      size: 30,
+                      color: Color.fromARGB(255, 10, 29, 86),
+                    ),
                   ),
                   SizedBox(height: 12),
                   Text(
@@ -39,10 +42,7 @@ class CustomDrawer extends StatelessWidget {
                   SizedBox(height: 4),
                   Text(
                     'admin@gmail.com',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
                   ),
                 ],
               ),
@@ -59,11 +59,16 @@ class CustomDrawer extends StatelessWidget {
             //   title: 'Settings',
             //   onTap: () => context.push('/settings'),
             // ),
-
             _buildDrawerItem(
               icon: Icons.notifications,
               title: 'Notifications',
               onTap: () => context.push('/notifications'),
+            ),
+
+            _buildDrawerItem(
+              icon: Icons.notifications,
+              title: 'News',
+              onTap: () => context.push('/news'),
             ),
 
             const Spacer(),
@@ -95,17 +100,15 @@ class CustomDrawer extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return ListTile(
-        leading: Icon(icon, color: primaryColor),
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        onTap: onTap,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        hoverColor: primaryColor.withAlpha(20),
-        splashColor: primaryColor.withAlpha(20));
+      leading: Icon(icon, color: primaryColor),
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+      ),
+      onTap: onTap,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      hoverColor: primaryColor.withAlpha(20),
+      splashColor: primaryColor.withAlpha(20),
+    );
   }
 }

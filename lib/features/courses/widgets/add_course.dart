@@ -1,10 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../../models/course_model/course_model.dart';
 import '../../../providers/courses_provider.dart';
 import '../../../utils/image_handler.dart';
@@ -106,9 +104,7 @@ class _AddCourseScreenState extends ConsumerState<AddCourseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add New Course'),
-      ),
+      appBar: AppBar(title: const Text('Add New Course')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -121,30 +117,42 @@ class _AddCourseScreenState extends ConsumerState<AddCourseScreen> {
                   radius: 50,
                   child: InkWell(
                     onTap: () => _handleImage(context, ref),
-                    child: Icon(
-                      Icons.camera_alt,
-                    ),
+                    child: Icon(Icons.camera_alt),
                   ),
                 ),
               ),
               _buildField(_titleController, 'Title', isRequired: true),
               _buildField(_subtitleController, 'Subtitle'),
-              _buildField(_descriptionController, 'Description',
-                  isRequired: true),
-              _buildField(_instructorController, 'Instructor Name',
-                  isRequired: true),
+              _buildField(
+                _descriptionController,
+                'Description',
+                isRequired: true,
+              ),
+              _buildField(
+                _instructorController,
+                'Instructor Name',
+                isRequired: true,
+              ),
               _buildField(_instructorImageController, 'Instructor Image URL'),
               _buildField(_currencyController, 'Currency'),
               _buildNumberField(
-                  'Price', (val) => _price = double.tryParse(val)),
-              _buildNumberField('Duration (Hours)',
-                  (val) => _durationHours = int.tryParse(val)),
+                'Price',
+                (val) => _price = double.tryParse(val),
+              ),
               _buildNumberField(
-                  'Total Modules', (val) => _totalModules = int.tryParse(val)),
+                'Duration (Hours)',
+                (val) => _durationHours = int.tryParse(val),
+              ),
+              _buildNumberField(
+                'Total Modules',
+                (val) => _totalModules = int.tryParse(val),
+              ),
               _buildField(_tagsController, 'Tags (comma-separated)'),
               _buildField(_languageController, 'Language'),
               _buildField(
-                  _levelController, 'Level (Beginner, Intermediate, Advanced)'),
+                _levelController,
+                'Level (Beginner, Intermediate, Advanced)',
+              ),
               _buildField(_videoUrlController, 'Video URL'),
               _buildField(_certificateUrlController, 'Certificate URL'),
               SwitchListTile(
@@ -157,7 +165,7 @@ class _AddCourseScreenState extends ConsumerState<AddCourseScreen> {
                 onPressed: _submit,
                 icon: const Icon(Icons.check),
                 label: const Text('Add Course'),
-              )
+              ),
             ],
           ),
         ),
@@ -165,8 +173,11 @@ class _AddCourseScreenState extends ConsumerState<AddCourseScreen> {
     );
   }
 
-  Widget _buildField(TextEditingController controller, String label,
-      {bool isRequired = false}) {
+  Widget _buildField(
+    TextEditingController controller,
+    String label, {
+    bool isRequired = false,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(

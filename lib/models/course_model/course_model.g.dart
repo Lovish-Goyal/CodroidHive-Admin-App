@@ -25,10 +25,12 @@ _$CourseModelImpl _$$CourseModelImplFromJson(Map<String, dynamic> json) =>
       videoUrl: json['videoUrl'] as String?,
       certificateUrl: json['certificateUrl'] as String?,
       isFree: json['isFree'] as bool? ?? false,
-      createdAt:
-          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
-      updatedAt:
-          const TimestampConverter().fromJson(json['updatedAt'] as Timestamp),
+      createdAt: const TimestampConverter().fromJson(
+        json['createdAt'] as Timestamp,
+      ),
+      updatedAt: const TimestampConverter().fromJson(
+        json['updatedAt'] as Timestamp,
+      ),
     );
 
 Map<String, dynamic> _$$CourseModelImplToJson(_$CourseModelImpl instance) =>

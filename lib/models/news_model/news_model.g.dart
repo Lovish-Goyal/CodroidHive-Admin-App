@@ -1,22 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'event_model.dart';
+part of 'news_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$EventModelImpl _$$EventModelImplFromJson(Map<String, dynamic> json) =>
-    _$EventModelImpl(
+_$NewsModelImpl _$$NewsModelImplFromJson(Map<String, dynamic> json) =>
+    _$NewsModelImpl(
       id: json['id'] as String,
-      eventName: json['eventName'] as String,
+      title: json['title'] as String?,
       description: json['description'] as String?,
       image: json['image'] as String?,
-      durationHours: (json['durationHours'] as num?)?.toInt(),
-      venue: json['venue'] as String,
-      sponser: json['sponser'] as String,
-      isFree: json['isFree'] as bool? ?? false,
-      date: const TimestampConverter().fromJson(json['date'] as Timestamp),
       createdAt: const TimestampConverter().fromJson(
         json['createdAt'] as Timestamp,
       ),
@@ -25,17 +20,12 @@ _$EventModelImpl _$$EventModelImplFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$$EventModelImplToJson(_$EventModelImpl instance) =>
+Map<String, dynamic> _$$NewsModelImplToJson(_$NewsModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'eventName': instance.eventName,
+      'title': instance.title,
       'description': instance.description,
       'image': instance.image,
-      'durationHours': instance.durationHours,
-      'venue': instance.venue,
-      'sponser': instance.sponser,
-      'isFree': instance.isFree,
-      'date': const TimestampConverter().toJson(instance.date),
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
     };
